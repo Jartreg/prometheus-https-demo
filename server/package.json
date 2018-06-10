@@ -1,0 +1,9 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "author": "Jartreg",
+  "private": true,
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
