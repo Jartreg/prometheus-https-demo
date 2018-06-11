@@ -15,7 +15,15 @@ app.use(session({
     resave: false
 }));
 
+// Assets
 app.use("/public", express.static(path.resolve(__dirname, "public")));
+
+// Material Design Assets
+const mdlJS = require.resolve("material-design-lite/material.min.js");
+const mdlCSS = require.resolve("material-design-lite/material.min.css");
+
+app.get("/public/mdl/material.min.js", (req, res) => res.sendFile(mdlJS));
+app.get("/public/mdl/material.min.css", (req, res) => res.sendFile(mdlCSS));
 
 app.use((req, res, next) => {
     req.user = req.session ? req.session.user : undefined;
