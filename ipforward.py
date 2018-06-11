@@ -6,6 +6,7 @@ ipv4command = "sysctl -w net.ipv4.ip_forward=1"
 ipv6Command = "sysctl -w net.ipv6.conf.all.forwarding=1"
 option1 = False
 option2 = False
+option3 = False
 
 endlessrun = True
 while endlessrun == True:
@@ -30,6 +31,9 @@ while endlessrun == True:
     elif option2 == True:
         print("Succesfully enabled ipv6 forwarding")
         option2 = False
+    elif option3 == True:
+        print("Wrong parameter")
+        option3 = False
     print("")
     optioninput = input()
     option = str(optioninput)
@@ -39,6 +43,8 @@ while endlessrun == True:
     elif option == "2":
         output = subprocess.check_output(['bash', '-c', ipv6Command])
         option2 = True
-    elif option == "q" or option == "Q":
+    elif option == 'q' or option == 'Q':
         os.system("clear")
         exit()
+    else:
+        option3 = True
