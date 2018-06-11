@@ -39,6 +39,6 @@ while endlessrun == True:
     elif option == "2":
         output = subprocess.check_output(['bash', '-c', ipv6Command])
         option2 = True
-    elif option == "q":
+    elif option == "q" or option == "Q":
         os.system("clear")
         exit()
