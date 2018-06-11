@@ -1,12 +1,71 @@
 const express = require("express");
+const consolidate = require("consolidate");
+const session = require("express-session");
 const path = require("path");
 
 const app = express();
 
+app.engine("html", consolidate.dust);
+app.set("view engine", "html");
+app.set("views", path.resolve(__dirname, "views"));
+
+app.use(session({
+    secret: "Tastaturkatze",
+    saveUninitialized: false,
+    resave: false
+}));
+
 app.use("/public", express.static(path.resolve(__dirname, "public")));
 
+app.use((req, res, next) => {
+    req.user = req.session ? req.session.user : undefined;
+    next();
+});
+
+// routes
+
 app.get("/", (req, res) => {
-    res.send("Hallo");
+    res.render("index", {
+        user: req.user
+    });
+});
+
+app.get("/login", (req, res) => {
+    if (req.user) {
+        res.redirect("/");
+    } else {
+        res.render("login");
+    }
+});
+
+app.get("/logout", (req, res) => {
+    req.session.destroy();
+    res.redirect("/");
+});
+
+// API
+
+app.post("/api/login", express.json(), (req, res) => {
+    if(req.user) {
+        res.json({
+            success: false,
+            message: "Du bist bereits angemeldet."
+        });
+    } else if (typeof req.body.user === "string" && typeof req.body.password === "string") {
+        const user = req.body.user.trim();
+
+        // for demonstration purposes: always log in
+        req.session.user = user; // log in
+        req.session.save();
+
+        // send successful response
+        res.json({
+            success: true,
+            user
+        });
+    } else {
+        res.sendStatus(400); // Bad Request
+    }
 });
 
 module.exports = app;
