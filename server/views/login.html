@@ -5,10 +5,33 @@
     <meta charset="utf-8" />
     <title>Anmelden</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/public/css/style.css">
+    <link rel="stylesheet" href="/public/mdl/material.min.css">
+    <script src="/public/mdl/material.min.js"></script>
 </head>
 
 <body>
-    
+    <div class="login-container">
+        <form class="mdl-dialog" id="login-form">
+            <h4 class="mdl-dialog__title">Anmelden</h4>
+            <div class="mdl-dialog__content">
+                <p class="login-error hidden" id="error"></p>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" id="user" autofocus>
+                    <label class="mdl-textfield__label" for="user">Name</label>
+                </div>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="password" id="password">
+                    <label class="mdl-textfield__label" for="password">Passwort</label>
+                </div>
+            </div>
+            <div class="mdl-dialog__actions">
+                <button type="submit" class="mdl-button mdl-button--raised mdl-button--colored">Anmelden</button>
+                <a href="/" class="mdl-button">Zurück</a>
+            </div>
+        </form>
+        <script src="/public/login.js"></script>
+    </div>
 </body>
 
 </html>
