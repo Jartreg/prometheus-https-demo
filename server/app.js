@@ -1,3 +1,4 @@
+const chalk = require("chalk");
 const express = require("express");
 const consolidate = require("consolidate");
 const session = require("express-session");
@@ -32,6 +33,26 @@ app.use((req, res, next) => {
     next();
 });
 
+// Logging
+app.use((req, res, next) => {
+    console.log(`
+${chalk.bold("Anfrage:")} ${req.protocol}://${req.hostname}${req.originalUrl}
+    Von: ${req.ip}
+    Sicher: ${req.secure ? chalk.green("Ja") : chalk.red("Nein")}`);
+
+    next();
+});
+
+function logBody(req, res, next) {
+    if (req.body) {
+        console.log("    Daten:");
+        for (const key in req.body) {
+            console.log(`        "${key}": "${req.body[key]}"`);
+        }
+    }
+    next();
+}
+
 // routes
 
 app.get("/", (req, res) => {
@@ -55,7 +76,7 @@ app.get("/logout", (req, res) => {
 
 // API
 
-app.post("/api/login", express.json(), (req, res) => {
+app.post("/api/login", express.json(), logBody, (req, res) => {
     if (req.user) {
         res.json({
             success: false,
@@ -64,7 +85,7 @@ app.post("/api/login", express.json(), (req, res) => {
     } else if (typeof req.body.user === "string" && typeof req.body.password === "string") {
         const user = req.body.user.trim();
 
-        if(!checkPassword(user, req.body.password)) {
+        if (!checkPassword(user, req.body.password)) {
             res.json({
                 success: false,
                 message: "Name oder Passwort falsch"
