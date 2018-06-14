@@ -3,6 +3,8 @@ const consolidate = require("consolidate");
 const session = require("express-session");
 const path = require("path");
 
+const { checkPassword } = require("./login");
+
 const app = express();
 
 app.engine("html", consolidate.dust);
@@ -54,7 +56,7 @@ app.get("/logout", (req, res) => {
 // API
 
 app.post("/api/login", express.json(), (req, res) => {
-    if(req.user) {
+    if (req.user) {
         res.json({
             success: false,
             message: "Du bist bereits angemeldet."
@@ -62,7 +64,14 @@ app.post("/api/login", express.json(), (req, res) => {
     } else if (typeof req.body.user === "string" && typeof req.body.password === "string") {
         const user = req.body.user.trim();
 
-        // for demonstration purposes: always log in
+        if(!checkPassword(user, req.body.password)) {
+            res.json({
+                success: false,
+                message: "Name oder Passwort falsch"
+            });
+            return;
+        }
+
         req.session.user = user; // log in
         req.session.save();
 
