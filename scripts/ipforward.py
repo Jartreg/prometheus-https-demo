@@ -1,7 +1,6 @@
 import subprocess
 import os
 
-option = None
 ipv4command = "sysctl -w net.ipv4.ip_forward=1"
 ipv6Command = "sysctl -w net.ipv6.conf.all.forwarding=1"
 ipv4commandTwo = "sysctl -w net.ipv4.ip_forward=0"
@@ -15,19 +14,20 @@ option6 = False
 switchPage = False
 page = 1
 
-endlessrun = True
-while endlessrun == True:
+def banner():
+    print("   ___________      ______                               _ _             ")
+    print("  |_   _| ___ \     |  ___|                             | (_)            ")
+    print("    | | | |_/ /_____| |_ ___  _ ____      ____ _ _ __ __| |_ _ __   __ _ ")
+    print("    | | |  __/______|  _/ _ \| '__\ \ /\ / / _` | '__/ _` | | '_ \ / _` |")
+    print("   _| |_| |         | || (_) | |   \ V  V / (_| | | | (_| | | | | | (_| |")
+    print("   \___/\_|         \_| \___/|_|    \_/\_/ \__,_|_|  \__,_|_|_| |_|\__, |")
+    print("                                                                    __/ |")
+    print("                                                                   |___/ ")
+
+while True:
     if page == 1:
         os.system("clear")
-        print("   ___________      ______                               _ _             ")
-        print("  |_   _| ___ \     |  ___|                             | (_)            ")
-        print("    | | | |_/ /_____| |_ ___  _ ____      ____ _ _ __ __| |_ _ __   __ _ ")
-        print("    | | |  __/______|  _/ _ \| '__\ \ /\ / / _` | '__/ _` | | '_ \ / _` |")
-        print("   _| |_| |         | || (_) | |   \ V  V / (_| | | | (_| | | | | | (_| |")
-        print("   \___/\_|         \_| \___/|_|    \_/\_/ \__,_|_|  \__,_|_|_| |_|\__, |")
-        print("                                                                    __/ |")
-        print("                                                                   |___/ ")
-
+        banner()
         print("Which IP-Version do you want to port forward?")
         print("1) IPV4")
         print("2) IPV6")
@@ -63,14 +63,7 @@ while endlessrun == True:
             option3 = True
     elif page == 2:
         os.system("clear")
-        print("   ___________      ______                               _ _             ")
-        print("  |_   _| ___ \     |  ___|                             | (_)            ")
-        print("    | | | |_/ /_____| |_ ___  _ ____      ____ _ _ __ __| |_ _ __   __ _ ")
-        print("    | | |  __/______|  _/ _ \| '__\ \ /\ / / _` | '__/ _` | | '_ \ / _` |")
-        print("   _| |_| |         | || (_) | |   \ V  V / (_| | | | (_| | | | | | (_| |")
-        print("   \___/\_|         \_| \___/|_|    \_/\_/ \__,_|_|  \__,_|_|_| |_|\__, |")
-        print("                                                                    __/ |")
-        print("                                                                   |___/ ")
+        banner()
         print("Which IP-Version do you want to undo?")
         print("1) IPV4")
         print("2) IPV6")
