@@ -23,8 +23,6 @@ def banner():
 def wrongParameter():
     if wrongParameterVar==True:
         print("Wrong Parameter")
-    else:
-        pass
 
 def writeFile():
     target = open("ip.txt", "w")
