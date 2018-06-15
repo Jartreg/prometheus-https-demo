@@ -1,0 +1,30 @@
+.mdl-card.card--center {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.mdl-card.card--bg {
+    background: #F5F5F5;
+}
+
+.content-inset {
+    padding-top: 2em;
+}
+
+.login-container {
+    position: absolute;
+    min-height: 100%;
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-error {
+    color: orangered;
+}
+
+.login-error.hidden {
+    display: none;
+}
